@@ -43,12 +43,15 @@ dependencies {
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
 //    Hibernate
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
-//    implementation("org.hibernate:hibernate-validator:6.1.6.Final")
+    implementation("org.hibernate:hibernate-validator:6.1.6.Final")
     implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
 //    JPA
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
 //    Database
     implementation("org.postgresql:postgresql:42.2.18")
+//    Jackson xml
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("io.micronaut.xml:micronaut-jackson-xml")
 //    Tests
     runtimeOnly("com.h2database:h2")
 
