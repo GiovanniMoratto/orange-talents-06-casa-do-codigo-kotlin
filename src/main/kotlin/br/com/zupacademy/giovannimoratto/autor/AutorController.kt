@@ -36,13 +36,15 @@ class AutorController(
         return created(uri)
     }
 
+    //    /api/autores/email?email@email.com.br
     @Get
-    @Transactional
     fun buscar(@QueryValue(defaultValue = "") email: String): HttpResponse<Any> {
 
         if (email.isBlank()) {
             val autores = repository.findAll()
-            val response = autores.map { AutorResponse(it) }
+            val response = autores.map { autor ->
+                DetalhesDoAutorResponse(autor.nome, autor.email, autor.descricao)
+            }
 
             return ok(response)
         }
