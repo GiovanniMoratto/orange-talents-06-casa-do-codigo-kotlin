@@ -28,10 +28,10 @@ data class AutorRequest(
     @field:NotBlank
     val numero: String,
 ) {
-    fun toModel(enderecoResponse: EnderecoResponse): AutorModel {
-        val endereco = enderecoResponse.toEndereco(this.numero)
+    fun toModel(clientResponse: EnderecoResponse): AutorModel {
+        val endereco = clientResponse.toEndereco(this.numero)
 
         return AutorModel(this.nome, this.email, this.descricao, this.cpf, endereco)
     }
-    
+
 }

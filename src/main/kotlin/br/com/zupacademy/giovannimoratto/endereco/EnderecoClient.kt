@@ -12,6 +12,6 @@ import io.micronaut.http.client.annotation.Client
 interface EnderecoClient {
 
     @Get("/{cep}")
-    fun consulta(cep: String): HttpResponse<EnderecoResponse>
+    fun consulta(cep: String): HttpResponse<EnderecoResponse>?
 
 }
