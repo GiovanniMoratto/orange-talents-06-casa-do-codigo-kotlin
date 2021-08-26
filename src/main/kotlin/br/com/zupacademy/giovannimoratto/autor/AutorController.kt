@@ -1,6 +1,6 @@
 package br.com.zupacademy.giovannimoratto.autor
 
-import br.com.zupacademy.giovannimoratto.endereco.EnderecoClient
+import br.com.zupacademy.giovannimoratto.core.endereco.EnderecoClient
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpResponse.*
 import io.micronaut.http.annotation.*
@@ -16,17 +16,16 @@ import javax.validation.constraints.Size
  */
 
 @Validated
-@Controller("/api/autores")
+@Controller("/api")
 class AutorController(
     val repository: AutorRepository,
-    val enderecoClient: EnderecoClient
+    val client: EnderecoClient
 ) {
-
-    @Post
+    @Post("/cadastra-autor")
     @Transactional
     fun cadastrar(@Body @Valid request: AutorRequest): HttpResponse<Any> {
 
-        val clientResponse = enderecoClient.consulta(request.cep)?.body()
+        val clientResponse = client.consulta(request.cep)?.body()
             ?: return badRequest("CEP inválido")
 
         val autor = request.toModel(clientResponse)
@@ -36,26 +35,25 @@ class AutorController(
         return created(uri)
     }
 
-    //    /api/autores/email?email@email.com.br
-    @Get
+    @Get("/autores")
+    @Transactional
+    fun lista(): HttpResponse<List<AutorResponse>> {
+        val autores = repository.findAll()
+        val response = autores.map(::AutorResponse)
+
+        return ok(response)
+    }
+
+    @Get("/autor")
+    @Transactional
     fun buscar(@QueryValue(defaultValue = "") email: String): HttpResponse<Any> {
-
-        if (email.isBlank()) {
-            val autores = repository.findAll()
-            val response = autores.map { autor ->
-                DetalhesDoAutorResponse(autor.nome, autor.email, autor.descricao)
-            }
-
-            return ok(response)
-        }
-
         val autor = repository.getByEmail(email)
             ?: return notFound("Autor não encontrado")
 
-        return ok(AutorResponse(autor))
+        return ok(DetalhesDoAutorResponse(autor.nome, autor.email, autor.descricao))
     }
 
-    @Put("/{id}")
+    @Put("/autor/{id}")
     @Transactional
     fun atualizar(@PathVariable id: Long, @Valid @NotBlank @Size(max = 400) descricao: String): HttpResponse<Any> {
 
@@ -67,7 +65,7 @@ class AutorController(
         return ok(AutorResponse(autor))
     }
 
-    @Delete("/{id}")
+    @Delete("/autor/{id}")
     @Transactional
     fun deletar(@PathVariable id: Long): HttpResponse<Any> {
         repository.deleteById(id)

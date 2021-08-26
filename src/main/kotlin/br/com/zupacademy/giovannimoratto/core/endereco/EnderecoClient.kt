@@ -1,4 +1,4 @@
-package br.com.zupacademy.giovannimoratto.endereco
+package br.com.zupacademy.giovannimoratto.core.endereco
 
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Get
@@ -12,6 +12,6 @@ import io.micronaut.http.client.annotation.Client
 interface EnderecoClient {
 
     @Get("/{cep}")
-    fun consulta(cep: String): HttpResponse<EnderecoResponse>?
+    fun consulta(cep: String): HttpResponse<EnderecoClientResponse>?
 
 }

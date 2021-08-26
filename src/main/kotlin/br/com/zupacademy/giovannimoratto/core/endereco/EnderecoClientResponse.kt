@@ -1,6 +1,10 @@
-package br.com.zupacademy.giovannimoratto.endereco
+package br.com.zupacademy.giovannimoratto.core.endereco
 
-data class EnderecoResponse(
+/**
+ *@Author giovanni.moratto
+ */
+
+data class EnderecoClientResponse(
     val cep: String,
     val state: String,
     val city: String,

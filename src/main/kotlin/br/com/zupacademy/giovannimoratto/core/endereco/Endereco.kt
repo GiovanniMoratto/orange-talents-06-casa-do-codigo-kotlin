@@ -1,4 +1,4 @@
-package br.com.zupacademy.giovannimoratto.endereco
+package br.com.zupacademy.giovannimoratto.core.endereco
 
 import javax.persistence.Embeddable
 

@@ -18,7 +18,7 @@ import javax.validation.ConstraintViolationException
  */
 
 @MicronautTest
-internal class CadastraAutorControllerTest {
+class CadastraAutorControllerTest {
 
     @Inject
     lateinit var controller: AutorController
@@ -158,8 +158,8 @@ internal class CadastraAutorControllerTest {
             controller.cadastrar(request)
         }
         assertEquals(
-            "cadastrar.request.cpf: número do registro de contribuinte individual brasileiro (CPF) inválido, " +
-                    "cadastrar.request.cpf: não deve estar em branco",
+            "cadastrar.request.cpf: não deve estar em branco, " +
+                    "cadastrar.request.cpf: número do registro de contribuinte individual brasileiro (CPF) inválido",
             exception.message
         )
     }

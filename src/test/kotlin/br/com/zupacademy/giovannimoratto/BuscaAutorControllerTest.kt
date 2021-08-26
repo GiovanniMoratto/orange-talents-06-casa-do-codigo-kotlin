@@ -1,25 +1,25 @@
 package br.com.zupacademy.giovannimoratto
 
 import br.com.zupacademy.giovannimoratto.autor.*
-import br.com.zupacademy.giovannimoratto.endereco.Endereco
+import br.com.zupacademy.giovannimoratto.core.endereco.Endereco
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
-import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import jakarta.inject.Inject
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-
 
 /**
  *@Author giovanni.moratto
  */
 
 @MicronautTest
-internal class BuscaAutorControllerTest {
+class BuscaAutorControllerTest {
 
     @field:Inject
     @field:Client("/")
@@ -96,27 +96,11 @@ internal class BuscaAutorControllerTest {
 
     @Test
     internal fun `status 200 - lista de autores`() {
-//        val response = controller.buscar("")
-
-        val resposta = client.toBlocking().exchange("/api/autores?email=${null}", DetalhesDoAutorResponse::class.java)
 
 
-//        assertEquals(HttpStatus.OK, response.status)
-//        assertNotNull(response.body())
-        assertEquals(autor1.nome, resposta.body()!!.nome)
-    }
-
-    @Test
-    internal fun `status 200 - lista de autores2`() {
-//        val response = controller.buscar("")
-
-//        val response = client
-//            .toBlocking()
-//            .exchange("/api/autores?email=${autor1.email}", AutorResponse::class.java)
-
-        val response = client
+        val response: HttpResponse<List<AutorResponse>> = client
             .toBlocking()
-            .exchange("/api/autores?email=${null}", AutorResponse::class.java)
+            .exchange("/api/autores")
 
         assertEquals(HttpStatus.OK, response.status)
         assertNotNull(response.body())
@@ -124,16 +108,14 @@ internal class BuscaAutorControllerTest {
 
     @Test
     internal fun `status 200 - busca autor`() {
-
         val response = client
             .toBlocking()
-            .exchange("/api/autores?email=${autor1.email}", AutorResponse::class.java)
+            .exchange("/api/autor?email=${autor1.email}", DetalhesDoAutorResponse::class.java)
 
         assertEquals(HttpStatus.OK, response.status)
         assertNotNull(response.body())
-        assertEquals(autor1.nome,response.body()!!.nome)
-        assertEquals(autor1.descricao,response.body()!!.descricao)
-        assertEquals(autor1.email,response.body()!!.email)
-
+        assertEquals(autor1.nome, response.body()!!.nome)
+        assertEquals(autor1.descricao, response.body()!!.descricao)
+        assertEquals(autor1.email, response.body()!!.email)
     }
 }

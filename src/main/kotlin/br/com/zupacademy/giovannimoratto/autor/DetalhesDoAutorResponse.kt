@@ -9,4 +9,5 @@ class DetalhesDoAutorResponse(
     val email: String,
     val descricao: String
 ) {
+
 }

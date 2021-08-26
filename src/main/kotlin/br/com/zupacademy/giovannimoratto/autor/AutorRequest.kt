@@ -1,7 +1,7 @@
 package br.com.zupacademy.giovannimoratto.autor
 
+import br.com.zupacademy.giovannimoratto.core.endereco.EnderecoClientResponse
 import br.com.zupacademy.giovannimoratto.core.validators.Unique
-import br.com.zupacademy.giovannimoratto.endereco.EnderecoResponse
 import io.micronaut.core.annotation.Introspected
 import org.hibernate.validator.constraints.br.CPF
 import javax.validation.constraints.Email
@@ -28,7 +28,7 @@ data class AutorRequest(
     @field:NotBlank
     val numero: String,
 ) {
-    fun toModel(clientResponse: EnderecoResponse): AutorModel {
+    fun toModel(clientResponse: EnderecoClientResponse): AutorModel {
         val endereco = clientResponse.toEndereco(this.numero)
 
         return AutorModel(this.nome, this.email, this.descricao, this.cpf, endereco)

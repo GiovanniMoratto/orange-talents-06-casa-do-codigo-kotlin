@@ -6,4 +6,5 @@ class AutorResponse(
     val nome = autor.nome
     val email = autor.email
     val descricao = autor.descricao
+
 }

@@ -34,25 +34,28 @@ dependencies {
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("javax.annotation:javax.annotation-api")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    implementation("io.micronaut:micronaut-validation")
     runtimeOnly("ch.qos.logback:logback-classic")
-//    JDBC
-    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-//    Hibernate
-    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+    implementation("io.micronaut:micronaut-validation")
+
+    // Hibernate
     implementation("org.hibernate:hibernate-validator:6.1.6.Final")
     implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
-//    JPA
+
+    // JPA
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
-//    Database
-    implementation("org.postgresql:postgresql:42.2.18")
-//    Jackson xml
-    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // Database
+    implementation("org.postgresql:postgresql")
+
+    // Jackson XML
     implementation("io.micronaut.xml:micronaut-jackson-xml")
-//    Tests
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // Tests
     testAnnotationProcessor("io.micronaut:micronaut-inject-java")
     testImplementation("io.micronaut:micronaut-http-client")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
@@ -71,18 +74,18 @@ application {
     mainClass.set("br.com.zupacademy.giovannimoratto.ApplicationKt")
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("14")
+    sourceCompatibility = JavaVersion.toVersion("16")
 }
 
 tasks {
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "14"
+            jvmTarget = "16"
         }
     }
     compileTestKotlin {
         kotlinOptions {
-            jvmTarget = "14"
+            jvmTarget = "16"
         }
     }
 

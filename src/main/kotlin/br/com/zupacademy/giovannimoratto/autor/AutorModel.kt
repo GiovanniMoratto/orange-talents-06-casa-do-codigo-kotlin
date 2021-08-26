@@ -1,6 +1,6 @@
 package br.com.zupacademy.giovannimoratto.autor
 
-import br.com.zupacademy.giovannimoratto.endereco.Endereco
+import br.com.zupacademy.giovannimoratto.core.endereco.Endereco
 import org.hibernate.annotations.CreationTimestamp
 import java.time.LocalDateTime
 import javax.persistence.*
