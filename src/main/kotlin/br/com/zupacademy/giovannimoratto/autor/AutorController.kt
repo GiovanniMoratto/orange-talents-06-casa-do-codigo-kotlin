@@ -37,6 +37,23 @@ class AutorController(
 
     @Get("/autores")
     @Transactional
+    fun buscar(@QueryValue(defaultValue = "") email: String): HttpResponse<Any> {
+        if(email.isBlank()){
+            val autores = repository.findAll()
+            val response = autores.map(::AutorResponse)
+
+            return ok(response)
+        }
+
+        val autor = repository.getByEmail(email)
+            ?: return notFound("Autor não encontrado")
+
+        return ok(AutorResponse(autor))
+    }
+
+    /*
+    @Get("/autores")
+    @Transactional
     fun lista(): HttpResponse<List<AutorResponse>> {
         val autores = repository.findAll()
         val response = autores.map(::AutorResponse)
@@ -44,14 +61,35 @@ class AutorController(
         return ok(response)
     }
 
+
     @Get("/autor")
     @Transactional
-    fun buscar(@QueryValue(defaultValue = "") email: String): HttpResponse<Any> {
+    fun buscar(email: String): HttpResponse<Any> {
         val autor = repository.getByEmail(email)
             ?: return notFound("Autor não encontrado")
 
-        return ok(DetalhesDoAutorResponse(autor.nome, autor.email, autor.descricao))
+        return ok(AutorResponse(autor))
     }
+
+     */
+
+//    @Get("/autores")
+//    @Transactional
+//    fun lista(): HttpResponse<Any> {
+//        val autores = repository.findAll()
+//        val response = autores.map { autor -> DetalhesDoAutorResponse(autor.nome, autor.email, autor.descricao) }
+//
+//        return ok(response)
+//    }
+
+//    @Get("/autor")
+//    @Transactional
+//    fun buscar(email: String): HttpResponse<Any> {
+//        val autor = repository.getByEmail(email)
+//            ?: return notFound("Autor não encontrado")
+//
+//        return ok(DetalhesDoAutorResponse(autor.nome, autor.email, autor.descricao))
+//    }
 
     @Put("/autor/{id}")
     @Transactional

@@ -118,4 +118,17 @@ class BuscaAutorControllerTest {
         assertEquals(autor1.descricao, response.body()!!.descricao)
         assertEquals(autor1.email, response.body()!!.email)
     }
+
+    @Test
+    internal fun `status 200 - busca autor 2`() {
+        val response = client
+            .toBlocking()
+            .exchange("/api/autor2?email=${autor1.email}", AutorResponse::class.java)
+
+        assertEquals(HttpStatus.OK, response.status)
+        assertNotNull(response.body())
+        assertEquals(autor1.nome, response.body()!!.nome)
+        assertEquals(autor1.descricao, response.body()!!.descricao)
+        assertEquals(autor1.email, response.body()!!.email)
+    }
 }
