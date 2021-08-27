@@ -53,7 +53,7 @@ class AutorController(
 
     @Put("/autor/{id}")
     @Transactional
-    fun atualizar(@PathVariable id: Long, @Valid @NotBlank @Size(max = 400) descricao: String): HttpResponse<Any> {
+    fun atualizar(@PathVariable id: Long, @NotBlank @Size(max = 400) descricao: String): HttpResponse<Any> {
 
         val autor = repository.getById(id)
             ?: return notFound("Autor não encontrado")
