@@ -64,6 +64,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("com.h2database:h2")
     runtimeOnly("com.h2database:h2")
+    testImplementation ("org.junit.jupiter:junit-jupiter-params:5.1.0")
 
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
